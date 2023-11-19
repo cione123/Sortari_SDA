@@ -1,0 +1,56 @@
+//metoda de sortare quicksort
+
+#include<stdio.h>
+#include<stdlib.h>
+
+void interschimbare(int* a, int* b)
+{
+	int aux = *a;
+	*a = *b;
+	*b = aux;
+}
+int partitie(int a[],int dreaptaanga, int dreapta)
+{
+	int i, j, x, aux;
+	x = a[dreapta];
+	i = (dreaptaanga - 1);
+	for (j = dreaptaanga; j <= dreapta - 1; j++)
+	{
+		if (a[j] < x)
+		{
+			i++;
+			interschimbare(&a[i], &a[j]);
+		}
+	}
+	interschimbare(&a[i + 1], &a[dreapta]);
+	return(i + 1);
+}
+
+void quicksort(int a[], int dreaptaanga, int dreapta)
+{
+	int index;
+	if (dreaptaanga < dreapta)
+	{
+		index = partitie(a, dreaptaanga, dreapta);
+		quicksort(a, dreaptaanga, index - 1);
+		quicksort(a, index + 1, dreapta);
+	}
+}
+
+void afisare_vector(int a[], int n)
+{
+	int i;
+	for (i = 0; i < n; i++)
+		printf(" %d", a[i]);
+}
+int main()
+{
+	int a[] = { 14, 17, 8, 90, 11, 2 };
+	int n = 6;
+	printf("Vectorul initial edreaptae:");
+	afisare_vector(a, n);
+	printf("\nVectorul dupa sortare edreaptae:");
+	quicksort(a, 0, n-1 );
+	afisare_vector(a, n);
+	return 0;
+}
