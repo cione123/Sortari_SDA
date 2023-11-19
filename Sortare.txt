@@ -1,0 +1,48 @@
+#include <stdio.h>
+void swap(int *a, int *b) //interschimba elementele vectorului
+{
+    int temp=*a;
+    *a=*b;
+    *b=temp;
+}
+void heap(int v[], int n, int i)
+{
+    int largest = i;
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
+  if(left<n && v[left]>v[largest])//verifica daca valoarea elemntului left e mai mare decat largest
+  {
+      largest=left;
+  }
+  if(right<n && v[right]>v[largest])//verifica valoarea elemului right daca e mai mare decat largest
+  {
+      largest=right;
+  }
+  if(largest!=i)//daca celui mai mare element nu i s-a modificat cheia atunci se interschimba
+  {
+      swap(&v[i], &v[largest]);
+      heap(v,n,largest);
+  }
+}
+void HEAP_SORT(int v[], int n)
+{
+    int i;
+    for (i = n / 2 - 1; i >= 0; i--) //construim cel mai mare ansamblu
+      heap(v, n, i);
+    for(i=n-1; i>0; i--)
+      {swap(&v[0], &v[i]);
+      heap(v,i,0);}
+}
+int main() 
+{
+    int i, n=6;
+    int v[]={1, 12, 9, 5, 6, 10};
+    HEAP_SORT(v,n);
+    printf("Vectorul sortat este: ");
+    for(i=0; i<n; i++)
+    {
+        printf("%d ", v[i]);
+    }
+    printf("\n");
+    return 0;
+}
